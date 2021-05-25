@@ -36,7 +36,7 @@ EventID = (
 )
 
 
-URL = 'https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4625'
+URL = 'https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4610'
 page = requests.get(URL)
 #soup = BeautifulSoup(page.text, 'html.parser')
 soupXML = BeautifulSoup(page.content, "lxml")
@@ -55,6 +55,16 @@ print("URL: " + URL + "\n")
 print(EventXML)
 
 
+try:
+    label = soup.find(id="security-monitoring-recommendations")
+    table = label.findNext('ul')
+    rows = table.findAll('p')
+    for tr in rows:
+        print(tr.text)
+except:
+    pass
+
+
 # Recommendation Section
 try:
     table = soup.find_all('table')[-1]
@@ -68,4 +78,4 @@ try:
             print(f'Recommendation: \n{Recommendation.text}')
             print('\n')
 except Exception as ex:
-    print("The parsing did not work")
+    pass
